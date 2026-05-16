@@ -3,266 +3,231 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>云译华夏 - 让中国故事，走向世界</title>
-  <script src="https://cdn.tailwindcss.com/3.4.1"></script>
+  <title>云译华夏 - AI驱动中华文化多语种国际传播平台 | 广外</title>
+  <script src="https://cdn.tailwindcss.com"></script>
   <script>
-    /* ========== Tailwind 自定义配置 ========== */
+    /* ========== Tailwind 自定义主题 ========== */
     tailwind.config = {
       theme: {
         extend: {
           colors: {
-            'guohong':  '#8B2323',  /* 故宫红 */
-            'golden':   '#FFD700',  /* 金色 */
-            'beige':    '#F5F0E6',  /* 浅米色 */
-            'darkgray': '#333333',
-            'softgray': '#666666',
-          },
-          fontFamily: {
-            sans: ['"Noto Sans SC"', '"Segoe UI"', 'system-ui', 'sans-serif'],
-          },
+            guohong:  '#8B2323',
+            golden:   '#FFD700',
+            beige:    '#F5F0E6',
+            dark:     '#2D2D2D',
+            soft:     '#5A5A5A',
+          }
         }
       }
     }
   </script>
-  <!-- Google Fonts: Noto Sans SC (中文字体) + Inter (英文) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
   <style>
-    /* ========== 全局基础样式 ========== */
+    /* ========== 全局样式 ========== */
     html { scroll-behavior: smooth; }
-    body { font-family: 'Noto Sans SC', 'Inter', system-ui, sans-serif; color: #333; }
-    .font-en { font-family: 'Inter', system-ui, sans-serif; }
+    body {
+      font-family: 'Noto Sans SC', 'Inter', system-ui, -apple-system, sans-serif;
+      color: #2D2D2D;
+      background: #F5F0E6;
+      -webkit-font-smoothing: antialiased;
+    }
 
-    /* 国风纹理背景 (英雄区) */
-    .hero-pattern {
+    /* ---------- 国风纹理背景 ---------- */
+    .hero-bg {
       background-color: #F5F0E6;
       background-image:
-        radial-gradient(circle at 20% 50%, rgba(139,35,35,0.03) 0%, transparent 50%),
-        radial-gradient(circle at 80% 20%, rgba(255,215,0,0.04) 0%, transparent 50%),
-        radial-gradient(circle at 50% 80%, rgba(139,35,35,0.03) 0%, transparent 50%);
+        radial-gradient(ellipse at 15% 20%, rgba(139,35,35,0.04) 0%, transparent 55%),
+        radial-gradient(ellipse at 85% 75%, rgba(255,215,0,0.06) 0%, transparent 55%),
+        radial-gradient(ellipse at 50% 50%, rgba(139,35,35,0.02) 0%, transparent 70%);
     }
-
-    /* 国风装饰纹理 - 祥云纹模拟 */
-    .cloud-pattern {
-      position: relative;
-    }
-    .cloud-pattern::before {
+    /* 祥云暗纹叠加层 */
+    .hero-bg::before {
       content: '';
-      position: absolute;
-      inset: 0;
-      opacity: 0.04;
-      background:
-        repeating-linear-gradient(45deg, transparent, transparent 40px, rgba(139,35,35,0.3) 40px, rgba(139,35,35,0.3) 41px),
-        repeating-linear-gradient(-45deg, transparent, transparent 40px, rgba(139,35,35,0.3) 40px, rgba(139,35,35,0.3) 41px);
+      position: absolute; inset: 0;
+      opacity: 0.035;
+      background-image:
+        repeating-linear-gradient(45deg, transparent, transparent 60px, #8B2323 60px, #8B2323 61px),
+        repeating-linear-gradient(-45deg, transparent, transparent 60px, #8B2323 60px, #8B2323 61px);
       pointer-events: none;
     }
 
-    /* 数字滚动动画 - 等宽数字 */
-    .stat-number { font-variant-numeric: tabular-nums; font-weight: 800; }
+    /* ---------- 导航栏滚动效果 ---------- */
+    .navbar-solid {
+      background: rgba(255,255,255,0.92) !important;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      box-shadow: 0 2px 24px rgba(0,0,0,0.07);
+    }
 
-    /* 卡片 hover 效果 */
-    .feature-card {
+    /* ---------- 卡片悬浮 ---------- */
+    .card-hover {
       transition: transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94),
                   box-shadow 0.35s ease;
     }
-    .feature-card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 20px 40px rgba(139,35,35,0.15), 0 8px 16px rgba(0,0,0,0.08);
-    }
-
-    /* 按钮波纹效果 */
-    .btn-ripple {
-      position: relative;
-      overflow: hidden;
-    }
-    .btn-ripple::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: rgba(255,255,255,0.2);
-      opacity: 0;
-      transition: opacity 0.3s;
-    }
-    .btn-ripple:active::after { opacity: 1; }
-
-    /* 进度条动画 */
-    .progress-bar-animate {
-      transition: width 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    }
-
-    /* 导航栏滚动效果 */
-    .nav-scrolled {
-      background: rgba(255,255,255,0.95) !important;
-      backdrop-filter: blur(12px);
-      box-shadow: 0 2px 20px rgba(0,0,0,0.08);
-    }
-
-    /* 模态层 */
-    .modal-overlay {
-      background: rgba(0,0,0,0.7);
-      backdrop-filter: blur(4px);
-    }
-
-    /* 海报卡片 */
-    .poster-thumb {
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      cursor: pointer;
-    }
-    .poster-thumb:hover {
-      transform: scale(1.03);
-      box-shadow: 0 12px 30px rgba(0,0,0,0.18);
-    }
-
-    /* 语言标签 */
-    .lang-tag {
-      transition: all 0.2s ease;
-      cursor: pointer;
-    }
-    .lang-tag:hover, .lang-tag.active {
-      background: #8B2323;
-      color: #fff;
-      border-color: #8B2323;
-    }
-
-    /* 移动端菜单 */
-    .mobile-menu {
-      transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-                  opacity 0.3s ease;
-    }
-    .mobile-menu.hidden-menu {
+    .card-hover:hover {
       transform: translateY(-10px);
-      opacity: 0;
-      pointer-events: none;
+      box-shadow: 0 24px 48px rgba(139,35,35,0.12), 0 8px 16px rgba(0,0,0,0.06);
     }
 
-    /* Toast 提示 */
-    .toast {
-      position: fixed;
-      bottom: 30px;
-      left: 50%;
-      transform: translateX(-50%) translateY(100px);
-      background: #333;
-      color: #fff;
-      padding: 12px 24px;
-      border-radius: 8px;
-      font-size: 14px;
-      z-index: 1000;
+    /* ---------- 按钮动效 ---------- */
+    .btn-press {
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+    .btn-press:active {
+      transform: scale(0.96);
+    }
+
+    /* ---------- 海报放大模态 ---------- */
+    .modal-backdrop {
+      background: rgba(0,0,0,0.65);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+    }
+
+    /* ---------- 数字滚动 ---------- */
+    .count-up { font-variant-numeric: tabular-nums; }
+
+    /* ---------- Toast ---------- */
+    #toast {
+      position: fixed; bottom: 32px; left: 50%; transform: translateX(-50%) translateY(120px);
+      background: #2D2D2D; color: #fff; padding: 12px 28px; border-radius: 10px;
+      font-size: 14px; z-index: 9999; pointer-events: none;
       transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
-    .toast.show { transform: translateX(-50%) translateY(0); }
+    #toast.show { transform: translateX(-50%) translateY(0); }
 
-    /* 步骤指示器 */
-    .step-dot {
-      transition: all 0.4s ease;
+    /* ---------- 进度条 ---------- */
+    .progress-fill {
+      transition: width 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
-    .step-dot.completed { background: #8B2323; border-color: #8B2323; }
-    .step-dot.active { background: #FFD700; border-color: #FFD700; animation: pulse-dot 1.5s infinite; }
 
-    @keyframes pulse-dot {
-      0%, 100% { box-shadow: 0 0 0 0 rgba(255,215,0,0.5); }
-      50% { box-shadow: 0 0 0 12px rgba(255,215,0,0); }
+    /* ---------- 移动端菜单 ---------- */
+    .mobile-dropdown {
+      transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    .mobile-dropdown.closed {
+      opacity: 0; transform: translateY(-12px); pointer-events: none;
+    }
+
+    /* ---------- 亮点图标容器 ---------- */
+    .highlight-icon {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .highlight-icon:hover {
+      transform: scale(1.08);
+      box-shadow: 0 8px 24px rgba(139,35,35,0.18);
     }
   </style>
 </head>
 <body class="bg-beige">
 
   <!-- ==================== 导航栏 ==================== -->
-  <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 py-3 transition-all duration-400" style="background: transparent;">
+  <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 py-3 transition-all duration-400" style="background:transparent;">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex items-center justify-between h-16">
-        <!-- Logo -->
-        <div class="flex items-center gap-2">
-          <div class="w-9 h-9 bg-guohong rounded-lg flex items-center justify-center">
-            <span class="text-golden text-lg font-bold">云</span>
-          </div>
-          <span class="text-xl font-bold text-guohong" data-i18n="nav.logo">云译华夏</span>
-        </div>
 
-        <!-- 桌面端菜单 -->
-        <div class="hidden md:flex items-center gap-8">
-          <a href="#home"   class="text-darkgray hover:text-guohong font-medium transition-colors duration-200" data-i18n="nav.home">首页</a>
-          <a href="#features" class="text-darkgray hover:text-guohong font-medium transition-colors duration-200" data-i18n="nav.features">功能</a>
-          <a href="#about"  class="text-darkgray hover:text-guohong font-medium transition-colors duration-200" data-i18n="nav.about">关于</a>
-          <a href="#contact" class="text-darkgray hover:text-guohong font-medium transition-colors duration-200" data-i18n="nav.contact">联系</a>
-          <!-- 语言切换按钮 -->
-          <button id="langToggle"
-                  class="ml-4 px-4 py-2 border-2 border-guohong text-guohong rounded-full font-semibold text-sm
-                         hover:bg-guohong hover:text-white transition-all duration-300"
-                  data-i18n="nav.lang">EN</button>
+        <!-- Logo -->
+        <a href="#hero" class="flex items-center gap-2.5 no-underline">
+          <div class="w-10 h-10 bg-guohong rounded-xl flex items-center justify-center shadow-md shadow-guohong/20">
+            <span class="text-golden text-lg font-black">云</span>
+          </div>
+          <span class="text-xl font-black text-guohong tracking-wide">云译华夏</span>
+        </a>
+
+        <!-- 桌面菜单 -->
+        <div class="hidden lg:flex items-center gap-8">
+          <a href="#hero"      class="text-dark hover:text-guohong font-medium transition-colors duration-200">首页</a>
+          <a href="#features"  class="text-dark hover:text-guohong font-medium transition-colors duration-200">功能</a>
+          <a href="#about"     class="text-dark hover:text-guohong font-medium transition-colors duration-200">关于我们</a>
+          <a href="#team"      class="text-dark hover:text-guohong font-medium transition-colors duration-200">团队</a>
+          <a href="https://ai-chinese-culture-g-n9s6.bolt.host/" target="_blank" rel="noopener"
+             class="btn-press ml-2 px-5 py-2.5 bg-guohong text-white font-bold rounded-xl
+                    hover:bg-red-900 shadow-md shadow-guohong/25 transition-colors duration-300">
+            访问平台
+          </a>
         </div>
 
         <!-- 移动端汉堡按钮 -->
-        <button id="mobileMenuBtn" class="md:hidden flex flex-col gap-1.5 p-2" aria-label="菜单">
-          <span class="block w-6 h-0.5 bg-guohong transition-all duration-300 origin-center" id="bar1"></span>
-          <span class="block w-6 h-0.5 bg-guohong transition-all duration-300" id="bar2"></span>
-          <span class="block w-6 h-0.5 bg-guohong transition-all duration-300 origin-center" id="bar3"></span>
+        <button id="menuBtn" class="lg:hidden flex flex-col gap-1.5 p-2" aria-label="打开菜单">
+          <span id="bar1" class="block w-6 h-0.5 bg-guohong rounded transition-all duration-300"></span>
+          <span id="bar2" class="block w-6 h-0.5 bg-guohong rounded transition-all duration-300"></span>
+          <span id="bar3" class="block w-6 h-0.5 bg-guohong rounded transition-all duration-300"></span>
         </button>
       </div>
-    </div>
 
-    <!-- 移动端下拉菜单 -->
-    <div id="mobileMenu" class="md:hidden mobile-menu hidden-menu bg-white/95 backdrop-blur-lg shadow-lg rounded-b-2xl mx-4">
-      <div class="flex flex-col gap-0.5 py-3">
-        <a href="#home"     class="block px-6 py-3 text-darkgray hover:text-guohong hover:bg-beige/50 font-medium transition-colors" data-i18n="nav.home">首页</a>
-        <a href="#features" class="block px-6 py-3 text-darkgray hover:text-guohong hover:bg-beige/50 font-medium transition-colors" data-i18n="nav.features">功能</a>
-        <a href="#about"    class="block px-6 py-3 text-darkgray hover:text-guohong hover:bg-beige/50 font-medium transition-colors" data-i18n="nav.about">关于</a>
-        <a href="#contact"  class="block px-6 py-3 text-darkgray hover:text-guohong hover:bg-beige/50 font-medium transition-colors" data-i18n="nav.contact">联系</a>
-        <div class="px-6 py-3">
-          <button id="langToggleMobile"
-                  class="w-full px-4 py-2 border-2 border-guohong text-guohong rounded-full font-semibold text-sm
-                         hover:bg-guohong hover:text-white transition-all duration-300 text-center"
-                  data-i18n="nav.lang">EN</button>
+      <!-- 移动端下拉菜单 -->
+      <div id="mobileMenu" class="lg:hidden mobile-dropdown closed bg-white/95 backdrop-blur-xl rounded-2xl shadow-xl mt-2 mx-2">
+        <div class="flex flex-col py-3">
+          <a href="#hero"     class="px-6 py-3 text-dark hover:text-guohong hover:bg-beige/40 font-medium transition-colors">首页</a>
+          <a href="#features" class="px-6 py-3 text-dark hover:text-guohong hover:bg-beige/40 font-medium transition-colors">功能</a>
+          <a href="#about"    class="px-6 py-3 text-dark hover:text-guohong hover:bg-beige/40 font-medium transition-colors">关于我们</a>
+          <a href="#team"     class="px-6 py-3 text-dark hover:text-guohong hover:bg-beige/40 font-medium transition-colors">团队</a>
+          <div class="px-5 pt-2">
+            <a href="https://ai-chinese-culture-g-n9s6.bolt.host/" target="_blank" rel="noopener"
+               class="btn-press block w-full text-center px-5 py-3 bg-guohong text-white font-bold rounded-xl
+                      hover:bg-red-900 shadow-md transition-colors duration-300">
+              访问平台
+            </a>
+          </div>
         </div>
       </div>
     </div>
   </nav>
 
-  <!-- ==================== 首页 Hero 区 ==================== -->
-  <section id="home" class="hero-pattern cloud-pattern min-h-screen flex items-center relative overflow-hidden">
-    <!-- 装饰元素 -->
-    <div class="absolute top-20 right-10 w-64 h-64 bg-golden/10 rounded-full blur-3xl pointer-events-none"></div>
-    <div class="absolute bottom-20 left-10 w-80 h-80 bg-guohong/5 rounded-full blur-3xl pointer-events-none"></div>
-    <div class="absolute top-1/3 left-1/4 text-8xl select-none pointer-events-none opacity-[0.03] font-bold text-guohong" aria-hidden="true">華</div>
+  <!-- ==================== Hero 区 ==================== -->
+  <section id="hero" class="hero-bg relative min-h-screen flex items-center overflow-hidden">
+    <!-- 装饰浮层 -->
+    <div class="absolute top-24 right-10 w-72 h-72 bg-golden/8 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="absolute bottom-24 left-10 w-96 h-96 bg-guohong/4 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="absolute top-1/3 right-1/4 text-[10rem] select-none pointer-events-none opacity-[0.025] font-black text-guohong" aria-hidden="true">華</div>
+    <div class="absolute bottom-1/4 left-[15%] text-[8rem] select-none pointer-events-none opacity-[0.025] font-black text-guohong" aria-hidden="true">夏</div>
 
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32 w-full">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-28 w-full relative z-10">
       <div class="max-w-3xl mx-auto text-center">
-        <div class="inline-flex items-center gap-2 px-4 py-2 bg-golden/20 rounded-full mb-8">
-          <span class="w-2 h-2 bg-golden rounded-full"></span>
-          <span class="text-sm text-guohong font-medium" data-i18n="hero.badge">中华文化国际传播平台</span>
+
+        <!-- 顶部标签 -->
+        <div class="inline-flex items-center gap-2 px-5 py-2 bg-white/60 backdrop-blur-sm rounded-full mb-10 shadow-sm">
+          <span class="w-2 h-2 bg-guohong rounded-full animate-pulse"></span>
+          <span class="text-sm text-guohong font-semibold tracking-wide">广东外语外贸大学 · 高级翻译学院</span>
         </div>
 
-        <h1 class="text-5xl sm:text-6xl lg:text-7xl font-black text-guohong leading-tight mb-6" data-i18n="hero.title">
+        <!-- 主标题 -->
+        <h1 class="text-5xl sm:text-6xl lg:text-7xl font-black text-guohong leading-tight mb-6 tracking-tight">
           云译华夏
         </h1>
 
-        <p class="text-xl sm:text-2xl text-softgray font-medium mb-4" data-i18n="hero.subtitle">
-          让中国故事，走向世界
+        <!-- 副标题 -->
+        <p class="text-xl sm:text-2xl text-soft font-semibold mb-5">
+          AI驱动中华文化多语种国际传播平台
         </p>
 
-        <p class="text-base sm:text-lg text-softgray max-w-xl mx-auto mb-10 leading-relaxed" data-i18n="hero.desc">
-          融合AI翻译与智能创作技术，将中华优秀传统文化、校园文化转化为多语种图文视频内容，一键触达全球受众，让世界听见中国声音。
+        <!-- 简介 -->
+        <p class="text-base sm:text-lg text-soft max-w-xl mx-auto mb-12 leading-relaxed">
+          融合大语言模型与RAG检索增强生成技术，为广外师生提供多语种文化文案生成、
+          知识库智能检索与海外社交媒体一键适配服务，让中华文化跨越语言壁垒，触达全球。
         </p>
 
+        <!-- CTA 按钮组 -->
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
-          <button onclick="scrollToSection('features')"
-                  class="btn-ripple px-8 py-4 bg-guohong text-white font-bold text-lg rounded-xl
-                         hover:bg-red-900 active:scale-95 transition-all duration-300 shadow-lg shadow-guohong/25"
-                  data-i18n="hero.btnPrimary">
-            开始创作
-          </button>
-          <button onclick="scrollToSection('about')"
-                  class="btn-ripple px-8 py-4 border-2 border-guohong text-guohong font-bold text-lg rounded-xl
-                         hover:bg-guohong hover:text-white active:scale-95 transition-all duration-300"
-                  data-i18n="hero.btnSecondary">
+          <a href="https://ai-chinese-culture-g-n9s6.bolt.host/" target="_blank" rel="noopener"
+             class="btn-press inline-flex items-center justify-center gap-2 px-10 py-4 bg-guohong text-white font-bold text-lg rounded-2xl
+                    hover:bg-red-900 shadow-xl shadow-guohong/25 transition-all duration-300">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+            立即体验
+          </a>
+          <a href="#features"
+             class="btn-press inline-flex items-center justify-center gap-2 px-10 py-4 border-2 border-guohong text-guohong font-bold text-lg rounded-2xl
+                    hover:bg-guohong hover:text-white transition-all duration-300">
             了解更多
-          </button>
+          </a>
         </div>
 
-        <!-- 滚动提示 -->
+        <!-- 滚动提示箭头 -->
         <div class="mt-16 animate-bounce">
-          <svg class="w-6 h-6 mx-auto text-softgray" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+          <svg class="w-5 h-5 mx-auto text-soft/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
           </svg>
         </div>
       </div>
@@ -270,551 +235,553 @@
   </section>
 
   <!-- ==================== 核心功能区 ==================== -->
-  <section id="features" class="py-20 sm:py-28 bg-white">
+  <section id="features" class="py-24 bg-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <!-- 章节标题 -->
+
+      <!-- 标题 -->
       <div class="text-center mb-16">
-        <span class="text-golden font-bold text-sm tracking-widest uppercase" data-i18n="features.label">Core Features</span>
-        <h2 class="text-3xl sm:text-4xl font-black text-darkgray mt-3" data-i18n="features.title">核心功能</h2>
-        <div class="w-20 h-1 bg-golden mx-auto mt-4 rounded-full"></div>
+        <span class="text-golden font-bold text-sm tracking-[0.2em] uppercase">Core Features</span>
+        <h2 class="text-3xl sm:text-4xl font-black text-dark mt-3">核心功能</h2>
+        <p class="text-soft mt-3 max-w-lg mx-auto">三大AI引擎，覆盖文化传播全链路——从文案创作到知识检索，再到社媒发布</p>
+        <div class="w-16 h-1 bg-golden mx-auto mt-5 rounded-full"></div>
       </div>
 
-      <!-- 三列卡片 -->
+      <!-- 三卡片 -->
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
 
-        <!-- ===== 卡片1: 多语种文案生成 ===== -->
-        <div class="feature-card bg-white rounded-2xl shadow-md border border-gray-100 overflow-hidden">
-          <div class="h-48 bg-gradient-to-br from-guohong/10 via-golden/10 to-beige flex items-center justify-center">
-            <div class="text-center">
-              <div class="w-16 h-16 bg-white rounded-2xl shadow-md flex items-center justify-center mx-auto mb-3">
+        <!-- 卡片①：多语种文案生成 -->
+        <div class="card-hover bg-white rounded-2xl border border-gray-100 shadow-md overflow-hidden flex flex-col">
+          <!-- 卡片头部渐变图 -->
+          <div class="h-44 bg-gradient-to-br from-guohong/8 via-golden/10 to-beige flex items-center justify-center relative overflow-hidden">
+            <div class="absolute inset-0 opacity-10"
+                 style="background: repeating-linear-gradient(0deg, transparent, transparent 20px, #8B2323 20px, #8B2323 21px);"></div>
+            <div class="relative z-10 text-center">
+              <div class="w-16 h-16 bg-white rounded-2xl shadow-lg flex items-center justify-center mx-auto mb-3">
                 <svg class="w-8 h-8 text-guohong" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"
                     d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"/>
                 </svg>
               </div>
-              <span class="text-sm text-guohong font-medium">🌐 智能翻译引擎</span>
+              <span class="text-xs text-guohong font-semibold tracking-wider">🌐 NLP + LLM</span>
             </div>
           </div>
-          <div class="p-6">
-            <h3 class="text-xl font-bold text-darkgray mb-2" data-i18n="features.card1.title">多语种文案生成</h3>
-            <p class="text-softgray text-sm mb-5" data-i18n="features.card1.desc">支持中英法西阿五种语言，一键生成符合海外平台调性的文化传播文案。</p>
-            <!-- 语言选择 -->
-            <div class="flex gap-2 flex-wrap mb-4" id="langTags">
-              <span class="lang-tag active px-3 py-1 border border-guohong rounded-full text-xs font-medium" data-lang="zh">中文</span>
-              <span class="lang-tag px-3 py-1 border border-gray-300 rounded-full text-xs font-medium" data-lang="en">English</span>
-              <span class="lang-tag px-3 py-1 border border-gray-300 rounded-full text-xs font-medium" data-lang="fr">Français</span>
-              <span class="lang-tag px-3 py-1 border border-gray-300 rounded-full text-xs font-medium" data-lang="es">Español</span>
-              <span class="lang-tag px-3 py-1 border border-gray-300 rounded-full text-xs font-medium" data-lang="ar">العربية</span>
+          <!-- 卡片正文 -->
+          <div class="p-6 flex-1 flex flex-col">
+            <h3 class="text-xl font-bold text-dark mb-2">多语种文案生成</h3>
+            <p class="text-soft text-sm leading-relaxed mb-5 flex-1">
+              支持中、英、法、西、阿等12种语言，输入文化主题即可一键生成符合海外平台调性的高质量传播文案，
+              涵盖节日介绍、非遗科普、校园文化等多种场景。
+            </p>
+            <!-- 用户输入区 -->
+            <div class="mb-3">
+              <label class="text-xs text-soft/70 font-medium mb-1.5 block">✏️ 输入文案主题</label>
+              <textarea id="copywritingInput"
+                        class="w-full bg-beige/60 rounded-xl p-3 text-sm text-dark placeholder:text-soft/40
+                               border border-transparent focus:border-guohong/30 focus:bg-white
+                               outline-none resize-none transition-all duration-300"
+                        rows="2"
+                        placeholder="例如：中秋节的起源与习俗、京剧的艺术魅力、中国茶文化……"></textarea>
             </div>
-            <div class="bg-beige/50 rounded-lg p-3 mb-3 text-sm text-softgray min-h-[60px]" id="copywritingInput">
-              <span data-i18n="features.card1.inputPlaceholder">请输入文化主题，如"端午节的由来"……</span>
+            <!-- 语言选择 + 生成按钮 -->
+            <div class="flex gap-2 mb-3">
+              <select id="copywritingLang"
+                      class="flex-1 bg-beige/60 rounded-xl px-3 py-2 text-sm text-dark font-medium
+                             border border-transparent focus:border-guohong/30 outline-none cursor-pointer
+                             transition-all duration-300 appearance-none bg-[length:12px] bg-[right_12px_center] bg-no-repeat"
+                      style="background-image: url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%238B2323' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E&quot;);">
+                <option value="zh">🇨🇳 中文</option>
+                <option value="en">🇺🇸 English</option>
+                <option value="fr">🇫🇷 Français</option>
+                <option value="es">🇪🇸 Español</option>
+                <option value="ar">🇸🇦 العربية</option>
+              </select>
+              <button onclick="generateCopywriting()"
+                      class="btn-press px-5 py-2 bg-guohong text-white font-bold rounded-xl
+                             hover:bg-red-900 active:scale-95 transition-all duration-300 text-sm whitespace-nowrap
+                             shadow-md shadow-guohong/20">
+                ✨ 生成文案
+              </button>
             </div>
-            <button onclick="simulateCopywriting()"
-                    class="w-full py-3 bg-guohong text-white font-bold rounded-xl hover:bg-red-900 active:scale-[0.98] transition-all duration-300 text-sm"
-                    data-i18n="features.card1.generateBtn">✨ 一键生成文案</button>
-            <div class="mt-3 bg-guohong/5 rounded-lg p-3 text-sm text-darkgray min-h-[60px] transition-all duration-500" id="copywritingOutput">
-              <span class="text-softgray italic" data-i18n="features.card1.outputPlaceholder">生成结果将在此展示……</span>
+            <!-- AI 输出区 -->
+            <div id="copywritingOutput" class="bg-guohong/5 rounded-xl p-3 min-h-[72px] transition-all duration-500">
+              <div class="text-xs text-guohong/50 mb-1">▲ AI 生成结果</div>
+              <div id="copywritingResultText" class="text-sm text-soft/50 leading-relaxed italic">
+                输入主题并点击生成，AI 将为您创作多语种文化传播文案……
+              </div>
             </div>
           </div>
         </div>
 
-        <!-- ===== 卡片2: AI 国风海报生成 ===== -->
-        <div class="feature-card bg-white rounded-2xl shadow-md border border-gray-100 overflow-hidden">
-          <div class="h-48 bg-gradient-to-br from-golden/10 via-guohong/10 to-beige flex items-center justify-center">
-            <div class="text-center">
-              <div class="w-16 h-16 bg-white rounded-2xl shadow-md flex items-center justify-center mx-auto mb-3">
+        <!-- 卡片②：文化知识库RAG检索 -->
+        <div class="card-hover bg-white rounded-2xl border border-gray-100 shadow-md overflow-hidden flex flex-col">
+          <div class="h-44 bg-gradient-to-br from-golden/10 via-guohong/8 to-beige flex items-center justify-center relative overflow-hidden">
+            <div class="absolute inset-0 opacity-10"
+                 style="background: repeating-linear-gradient(45deg, transparent, transparent 20px, #8B2323 20px, #8B2323 21px);"></div>
+            <div class="relative z-10 text-center">
+              <div class="w-16 h-16 bg-white rounded-2xl shadow-lg flex items-center justify-center mx-auto mb-3">
                 <svg class="w-8 h-8 text-guohong" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"
+                    d="M4 7v10c0 2 1 3 3 3h10c2 0 3-1 3-3V7M4 7c0-2 1-3 3-3h10c2 0 3 1 3 3M4 7h16M9 11h6M9 15h3"/>
                 </svg>
               </div>
-              <span class="text-sm text-guohong font-medium">🎨 AI 绘图引擎</span>
+              <span class="text-xs text-guohong font-semibold tracking-wider">🔍 RAG 增强检索</span>
             </div>
           </div>
-          <div class="p-6">
-            <h3 class="text-xl font-bold text-darkgray mb-2" data-i18n="features.card2.title">AI 国风海报生成</h3>
-            <p class="text-softgray text-sm mb-5" data-i18n="features.card2.desc">精选3种国风海报模板，AI智能排版配色，一键导出高清海报。</p>
-            <!-- 三张海报缩略图 -->
-            <div class="grid grid-cols-3 gap-3">
-              <div class="poster-thumb rounded-lg overflow-hidden shadow-sm" onclick="openPosterModal(0)">
-                <div class="aspect-[3/4] bg-gradient-to-b from-guohong to-red-800 flex items-center justify-center relative">
-                  <div class="absolute inset-2 border border-golden/30 rounded"></div>
-                  <span class="text-golden text-xs font-bold text-center leading-tight px-1">水墨<br>丹青</span>
-                </div>
+          <div class="p-6 flex-1 flex flex-col">
+            <h3 class="text-xl font-bold text-dark mb-2">文化知识库 RAG 检索</h3>
+            <p class="text-soft text-sm leading-relaxed mb-5 flex-1">
+              基于广外高级翻译学院自建中华文化语料库，采用RAG（检索增强生成）技术，
+              确保AI回答有据可依，大幅降低幻觉，让每一段文化解读都精准可靠。
+            </p>
+            <!-- 知识库统计 -->
+            <div class="grid grid-cols-3 gap-2 text-center">
+              <div class="bg-beige/60 rounded-xl p-2">
+                <div class="text-lg font-black text-guohong">12+</div>
+                <div class="text-xs text-soft">语种覆盖</div>
               </div>
-              <div class="poster-thumb rounded-lg overflow-hidden shadow-sm" onclick="openPosterModal(1)">
-                <div class="aspect-[3/4] bg-gradient-to-b from-red-700 via-golden to-red-800 flex items-center justify-center relative">
-                  <div class="absolute inset-2 border border-white/30 rounded"></div>
-                  <span class="text-white text-xs font-bold text-center leading-tight px-1">节庆<br>华章</span>
-                </div>
+              <div class="bg-beige/60 rounded-xl p-2">
+                <div class="text-lg font-black text-guohong">50K+</div>
+                <div class="text-xs text-soft">知识条目</div>
               </div>
-              <div class="poster-thumb rounded-lg overflow-hidden shadow-sm" onclick="openPosterModal(2)">
-                <div class="aspect-[3/4] bg-gradient-to-b from-slate-100 to-gray-200 flex items-center justify-center relative">
-                  <div class="absolute inset-2 border border-guohong/20 rounded"></div>
-                  <span class="text-guohong text-xs font-bold text-center leading-tight px-1">现代<br>简约</span>
-                </div>
+              <div class="bg-beige/60 rounded-xl p-2">
+                <div class="text-lg font-black text-guohong">&lt;3%</div>
+                <div class="text-xs text-soft">幻觉率</div>
               </div>
             </div>
-            <p class="text-xs text-softgray text-center mt-3" data-i18n="features.card2.hint">点击海报可放大预览</p>
           </div>
         </div>
 
-        <!-- ===== 卡片3: 短视频一键剪辑 ===== -->
-        <div class="feature-card bg-white rounded-2xl shadow-md border border-gray-100 overflow-hidden">
-          <div class="h-48 bg-gradient-to-br from-beige via-golden/10 to-guohong/10 flex items-center justify-center">
-            <div class="text-center">
-              <div class="w-16 h-16 bg-white rounded-2xl shadow-md flex items-center justify-center mx-auto mb-3">
+        <!-- 卡片③：海外社媒一键适配 -->
+        <div class="card-hover bg-white rounded-2xl border border-gray-100 shadow-md overflow-hidden flex flex-col">
+          <div class="h-44 bg-gradient-to-br from-beige via-golden/10 to-guohong/8 flex items-center justify-center relative overflow-hidden">
+            <div class="absolute inset-0 opacity-10"
+                 style="background: repeating-linear-gradient(90deg, transparent, transparent 20px, #FFD700 20px, #FFD700 21px);"></div>
+            <div class="relative z-10 text-center">
+              <div class="w-16 h-16 bg-white rounded-2xl shadow-lg flex items-center justify-center mx-auto mb-3">
                 <svg class="w-8 h-8 text-guohong" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"
+                    d="M7 4v16M17 4v16M3 8h4m10 0h4M3 12h18M3 16h4m10 0h4M4 20h16a1 1 0 001-1V5a1 1 0 00-1-1H4a1 1 0 00-1 1v14a1 1 0 001 1z"/>
                 </svg>
               </div>
-              <span class="text-sm text-guohong font-medium">🎬 智能剪辑引擎</span>
+              <span class="text-xs text-guohong font-semibold tracking-wider">📱 社媒智能适配</span>
             </div>
           </div>
-          <div class="p-6">
-            <h3 class="text-xl font-bold text-darkgray mb-2" data-i18n="features.card3.title">短视频一键剪辑</h3>
-            <p class="text-softgray text-sm mb-5" data-i18n="features.card3.desc">AI自动配乐、字幕生成、转场特效，三步完成文化短视频创作。</p>
-            <!-- 剪辑步骤示意 -->
-            <div class="space-y-3 mb-4">
-              <div class="flex items-center gap-3">
-                <div class="step-dot completed w-8 h-8 rounded-full border-2 border-guohong flex items-center justify-center text-white bg-guohong text-xs font-bold">1</div>
-                <div class="flex-1">
-                  <span class="text-sm font-medium text-darkgray" data-i18n="features.card3.step1">素材导入</span>
-                  <p class="text-xs text-softgray" data-i18n="features.card3.step1Desc">上传图片/视频素材</p>
-                </div>
-              </div>
-              <div class="w-0.5 h-4 bg-gray-200 ml-4"></div>
-              <div class="flex items-center gap-3">
-                <div class="step-dot active w-8 h-8 rounded-full border-2 border-golden flex items-center justify-center text-darkgray bg-golden text-xs font-bold">2</div>
-                <div class="flex-1">
-                  <span class="text-sm font-medium text-darkgray" data-i18n="features.card3.step2">智能剪辑</span>
-                  <p class="text-xs text-softgray" data-i18n="features.card3.step2Desc">AI自动生成字幕/BGM</p>
-                </div>
-              </div>
-              <div class="w-0.5 h-4 bg-gray-200 ml-4"></div>
-              <div class="flex items-center gap-3">
-                <div class="step-dot w-8 h-8 rounded-full border-2 border-gray-300 flex items-center justify-center text-softgray text-xs font-bold">3</div>
-                <div class="flex-1">
-                  <span class="text-sm font-medium text-darkgray" data-i18n="features.card3.step3">一键导出</span>
-                  <p class="text-xs text-softgray" data-i18n="features.card3.step3Desc">导出高清短视频</p>
-                </div>
-              </div>
+          <div class="p-6 flex-1 flex flex-col">
+            <h3 class="text-xl font-bold text-dark mb-2">海外社媒一键适配</h3>
+            <p class="text-soft text-sm leading-relaxed mb-5 flex-1">
+              自动将文化文案转换为符合 TikTok、Instagram、YouTube、Twitter/X 等海外主流平台的
+              格式与风格，智能推荐标签、配图建议与最佳发布时间。
+            </p>
+            <!-- 平台图标占位 -->
+            <div class="flex gap-3 flex-wrap">
+              <span class="px-3 py-1.5 bg-beige/80 rounded-lg text-xs font-medium text-dark">🎵 TikTok</span>
+              <span class="px-3 py-1.5 bg-beige/80 rounded-lg text-xs font-medium text-dark">📸 Instagram</span>
+              <span class="px-3 py-1.5 bg-beige/80 rounded-lg text-xs font-medium text-dark">▶️ YouTube</span>
+              <span class="px-3 py-1.5 bg-beige/80 rounded-lg text-xs font-medium text-dark">🐦 X/Twitter</span>
             </div>
-            <!-- 进度条 -->
-            <div class="bg-gray-200 rounded-full h-2.5 overflow-hidden">
-              <div id="videoProgressBar" class="bg-gradient-to-r from-guohong to-golden h-full rounded-full progress-bar-animate" style="width: 0%"></div>
-            </div>
-            <div class="flex justify-between mt-2">
-              <span class="text-xs text-softgray" id="videoProgressLabel" data-i18n="features.card3.progress">处理进度</span>
-              <span class="text-xs text-guohong font-bold" id="videoProgressPercent">0%</span>
-            </div>
-            <button onclick="simulateVideoEdit()"
-                    class="w-full mt-4 py-3 bg-guohong text-white font-bold rounded-xl hover:bg-red-900 active:scale-[0.98] transition-all duration-300 text-sm"
-                    data-i18n="features.card3.startBtn">▶ 开始剪辑</button>
           </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- ==================== 数据看板区 ==================== -->
-  <section id="stats" class="py-20 bg-beige relative overflow-hidden">
-    <div class="absolute top-0 left-0 w-full h-full opacity-5 pointer-events-none"
-         style="background: repeating-linear-gradient(0deg, transparent, transparent 40px, #8B2323 40px, #8B2323 41px);"></div>
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-      <div class="text-center mb-14">
-        <h2 class="text-3xl sm:text-4xl font-black text-darkgray" data-i18n="stats.title">数据看板</h2>
-        <p class="text-softgray mt-2" data-i18n="stats.subtitle">用数据见证文化传播的力量</p>
-        <div class="w-20 h-1 bg-golden mx-auto mt-4 rounded-full"></div>
-      </div>
-
-      <div class="grid grid-cols-2 lg:grid-cols-4 gap-6">
-        <!-- 覆盖语种 -->
-        <div class="bg-white rounded-2xl shadow-md p-6 text-center hover:shadow-xl transition-shadow duration-300">
-          <div class="text-4xl mb-3">🗣️</div>
-          <p class="stat-number text-4xl sm:text-5xl text-guohong" id="statLanguages" data-target="12">0</p>
-          <span class="text-golden text-2xl font-bold">+</span>
-          <p class="text-softgray mt-2 font-medium" data-i18n="stats.stat1">覆盖语种</p>
-        </div>
-        <!-- 传播案例 -->
-        <div class="bg-white rounded-2xl shadow-md p-6 text-center hover:shadow-xl transition-shadow duration-300">
-          <div class="text-4xl mb-3">📖</div>
-          <p class="stat-number text-4xl sm:text-5xl text-guohong" id="statCases" data-target="5280">0</p>
-          <span class="text-golden text-2xl font-bold">+</span>
-          <p class="text-softgray mt-2 font-medium" data-i18n="stats.stat2">传播案例</p>
-        </div>
-        <!-- 海外受众 -->
-        <div class="bg-white rounded-2xl shadow-md p-6 text-center hover:shadow-xl transition-shadow duration-300">
-          <div class="text-4xl mb-3">🌍</div>
-          <p class="stat-number text-4xl sm:text-5xl text-guohong" id="statAudience" data-target="120">0</p>
-          <span class="text-golden text-2xl font-bold" data-i18n="stats.stat3Unit">万+</span>
-          <p class="text-softgray mt-2 font-medium" data-i18n="stats.stat3">海外受众</p>
-        </div>
-        <!-- 合作伙伴 -->
-        <div class="bg-white rounded-2xl shadow-md p-6 text-center hover:shadow-xl transition-shadow duration-300">
-          <div class="text-4xl mb-3">🤝</div>
-          <p class="stat-number text-4xl sm:text-5xl text-guohong" id="statPartners" data-target="236">0</p>
-          <span class="text-golden text-2xl font-bold">+</span>
-          <p class="text-softgray mt-2 font-medium" data-i18n="stats.stat4">合作伙伴</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ==================== 关于我们区 ==================== -->
-  <section id="about" class="py-20 sm:py-28 bg-white">
+  <!-- ==================== 项目亮点区 ==================== -->
+  <section id="highlights" class="py-24 bg-beige">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-16">
-        <span class="text-golden font-bold text-sm tracking-widest uppercase" data-i18n="about.label">About Us</span>
-        <h2 class="text-3xl sm:text-4xl font-black text-darkgray mt-3" data-i18n="about.title">关于我们</h2>
-        <div class="w-20 h-1 bg-golden mx-auto mt-4 rounded-full"></div>
+        <span class="text-golden font-bold text-sm tracking-[0.2em] uppercase">Why Choose Us</span>
+        <h2 class="text-3xl sm:text-4xl font-black text-dark mt-3">项目亮点</h2>
+        <p class="text-soft mt-3 max-w-lg mx-auto">专为广外师生打造，让文化国际传播更简单、更精准、更可信</p>
+        <div class="w-16 h-1 bg-golden mx-auto mt-5 rounded-full"></div>
       </div>
 
-      <!-- 项目介绍 -->
-      <div class="max-w-3xl mx-auto text-center mb-16">
-        <p class="text-softgray leading-relaxed text-lg" data-i18n="about.desc">
-          「云译华夏」由一群热爱中华文化的青年创建，致力于用科技赋能文化国际传播。项目融合自然语言处理、计算机视觉与短视频生成技术，帮助校园社团、文化机构和个人创作者，将中国故事转化为海外受众喜闻乐见的多媒体内容。
-        </p>
-      </div>
-
-      <!-- 团队成员 -->
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-        <!-- 成员1 -->
+        <!-- 亮点1 -->
         <div class="text-center group">
-          <div class="w-24 h-24 mx-auto mb-4 rounded-full overflow-hidden shadow-md group-hover:shadow-xl transition-shadow duration-300">
-            <img src="https://picsum.photos/200/200?random=21" alt="团队负责人" class="w-full h-full object-cover" loading="lazy">
+          <div class="highlight-icon w-20 h-20 mx-auto mb-5 bg-white rounded-2xl shadow-md flex items-center justify-center">
+            <svg class="w-10 h-10 text-guohong" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"
+                d="M13 10V3L4 14h7v7l9-11h-7z"/>
+            </svg>
           </div>
-          <h4 class="font-bold text-darkgray" data-i18n="about.member1.name">张明远</h4>
-          <p class="text-xs text-golden font-medium mb-2" data-i18n="about.member1.role">项目发起人</p>
-          <p class="text-xs text-softgray" data-i18n="about.member1.bio">NLP博士，专注跨语言文化传播研究</p>
-        </div>
-        <!-- 成员2 -->
-        <div class="text-center group">
-          <div class="w-24 h-24 mx-auto mb-4 rounded-full overflow-hidden shadow-md group-hover:shadow-xl transition-shadow duration-300">
-            <img src="https://picsum.photos/200/200?random=22" alt="技术负责人" class="w-full h-full object-cover" loading="lazy">
-          </div>
-          <h4 class="font-bold text-darkgray" data-i18n="about.member2.name">林诗涵</h4>
-          <p class="text-xs text-golden font-medium mb-2" data-i18n="about.member2.role">技术负责人</p>
-          <p class="text-xs text-softgray" data-i18n="about.member2.bio">全栈工程师，计算机视觉专家</p>
-        </div>
-        <!-- 成员3 -->
-        <div class="text-center group">
-          <div class="w-24 h-24 mx-auto mb-4 rounded-full overflow-hidden shadow-md group-hover:shadow-xl transition-shadow duration-300">
-            <img src="https://picsum.photos/200/200?random=23" alt="设计负责人" class="w-full h-full object-cover" loading="lazy">
-          </div>
-          <h4 class="font-bold text-darkgray" data-i18n="about.member3.name">陈晓雨</h4>
-          <p class="text-xs text-golden font-medium mb-2" data-i18n="about.member3.role">设计总监</p>
-          <p class="text-xs text-softgray" data-i18n="about.member3.bio">视觉设计师，国风美学研究者</p>
-        </div>
-        <!-- 成员4 -->
-        <div class="text-center group">
-          <div class="w-24 h-24 mx-auto mb-4 rounded-full overflow-hidden shadow-md group-hover:shadow-xl transition-shadow duration-300">
-            <img src="https://picsum.photos/200/200?random=24" alt="运营负责人" class="w-full h-full object-cover" loading="lazy">
-          </div>
-          <h4 class="font-bold text-darkgray" data-i18n="about.member4.name">王浩然</h4>
-          <p class="text-xs text-golden font-medium mb-2" data-i18n="about.member4.role">运营负责人</p>
-          <p class="text-xs text-softgray" data-i18n="about.member4.bio">国际传播运营，海外社媒达人</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ==================== 页脚 / 联系 ==================== -->
-  <footer id="contact" class="bg-darkgray text-white py-16">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-10 mb-12">
-        <!-- 品牌信息 -->
-        <div>
-          <div class="flex items-center gap-2 mb-4">
-            <div class="w-9 h-9 bg-guohong rounded-lg flex items-center justify-center">
-              <span class="text-golden text-lg font-bold">云</span>
-            </div>
-            <span class="text-xl font-bold text-white" data-i18n="footer.brand">云译华夏</span>
-          </div>
-          <p class="text-gray-400 text-sm leading-relaxed" data-i18n="footer.desc">
-            融合AI科技与中华美学，打造国际一流的文化传播平台。
+          <h3 class="text-lg font-bold text-dark mb-2">极简操作</h3>
+          <p class="text-sm text-soft leading-relaxed">
+            三步完成内容创作——输入主题、选择语种、一键生成，无需任何AI使用经验，师生零门槛上手。
           </p>
         </div>
 
-        <!-- 快速链接 -->
+        <!-- 亮点2 -->
+        <div class="text-center group">
+          <div class="highlight-icon w-20 h-20 mx-auto mb-5 bg-white rounded-2xl shadow-md flex items-center justify-center">
+            <svg class="w-10 h-10 text-guohong" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"
+                d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+            </svg>
+          </div>
+          <h3 class="text-lg font-bold text-dark mb-2">文化精准翻译</h3>
+          <p class="text-sm text-soft leading-relaxed">
+            针对"仁、义、礼、智、信"等中华文化核心概念建立专属术语库，确保翻译准确传达文化内涵。
+          </p>
+        </div>
+
+        <!-- 亮点3 -->
+        <div class="text-center group">
+          <div class="highlight-icon w-20 h-20 mx-auto mb-5 bg-white rounded-2xl shadow-md flex items-center justify-center">
+            <svg class="w-10 h-10 text-guohong" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"
+                d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
+            </svg>
+          </div>
+          <h3 class="text-lg font-bold text-dark mb-2">广外专属语料库</h3>
+          <p class="text-sm text-soft leading-relaxed">
+            由广外高级翻译学院师生共建，收录大量经过专业审校的中英平行语料与中华文化专题文献。
+          </p>
+        </div>
+
+        <!-- 亮点4 -->
+        <div class="text-center group">
+          <div class="highlight-icon w-20 h-20 mx-auto mb-5 bg-white rounded-2xl shadow-md flex items-center justify-center">
+            <svg class="w-10 h-10 text-guohong" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"
+                d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
+            </svg>
+          </div>
+          <h3 class="text-lg font-bold text-dark mb-2">减少AI幻觉</h3>
+          <p class="text-sm text-soft leading-relaxed">
+            RAG技术将AI回答严格限定在权威语料范围内，有效规避大模型"编造事实"问题，确保文化内容真实可信。
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== 用户场景区 ==================== -->
+  <section id="scenarios" class="py-24 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <span class="text-golden font-bold text-sm tracking-[0.2em] uppercase">Use Cases</span>
+        <h2 class="text-3xl sm:text-4xl font-black text-dark mt-3">应用场景</h2>
+        <p class="text-soft mt-3 max-w-lg mx-auto">覆盖教学、商业、社交三大场景，满足广外师生多样化需求</p>
+        <div class="w-16 h-1 bg-golden mx-auto mt-5 rounded-full"></div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- 场景1：多语种微课 -->
+        <div class="card-hover bg-white rounded-2xl border border-gray-100 shadow-md overflow-hidden">
+          <div class="h-40 bg-gradient-to-br from-blue-50 via-white to-beige flex items-center justify-center">
+            <svg class="w-16 h-16 text-guohong/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2"
+                d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+            </svg>
+          </div>
+          <div class="p-6">
+            <h3 class="text-lg font-bold text-dark mb-2">🎓 多语种微课制作</h3>
+            <p class="text-sm text-soft leading-relaxed">
+              教师可使用平台快速生成中英双语课程脚本，配以AI生成的国风视觉素材，
+              高效制作面向国际学生的中华文化微课视频。
+            </p>
+            <div class="mt-4 flex gap-2">
+              <span class="text-xs bg-beige/80 px-2 py-1 rounded-md text-soft">双语脚本</span>
+              <span class="text-xs bg-beige/80 px-2 py-1 rounded-md text-soft">课件配图</span>
+              <span class="text-xs bg-beige/80 px-2 py-1 rounded-md text-soft">字幕生成</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 场景2：跨境电商文案 -->
+        <div class="card-hover bg-white rounded-2xl border border-gray-100 shadow-md overflow-hidden">
+          <div class="h-40 bg-gradient-to-br from-guohong/5 via-golden/10 to-beige flex items-center justify-center">
+            <svg class="w-16 h-16 text-guohong/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2"
+                d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
+            </svg>
+          </div>
+          <div class="p-6">
+            <h3 class="text-lg font-bold text-dark mb-2">🛒 跨境电商文案</h3>
+            <p class="text-sm text-soft leading-relaxed">
+              为中国文化产品（茶叶、陶瓷、丝绸、文创等）生成符合海外电商平台风格的
+              多语种产品描述与品牌故事，助力文化出海与商业转化。
+            </p>
+            <div class="mt-4 flex gap-2">
+              <span class="text-xs bg-beige/80 px-2 py-1 rounded-md text-soft">产品描述</span>
+              <span class="text-xs bg-beige/80 px-2 py-1 rounded-md text-soft">品牌故事</span>
+              <span class="text-xs bg-beige/80 px-2 py-1 rounded-md text-soft">SEO优化</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 场景3：留学生社交配文 -->
+        <div class="card-hover bg-white rounded-2xl border border-gray-100 shadow-md overflow-hidden">
+          <div class="h-40 bg-gradient-to-br from-green-50 via-white to-beige flex items-center justify-center">
+            <svg class="w-16 h-16 text-guohong/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2"
+                d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+            </svg>
+          </div>
+          <div class="p-6">
+            <h3 class="text-lg font-bold text-dark mb-2">📱 留学生社交配文</h3>
+            <p class="text-sm text-soft leading-relaxed">
+              来华留学生在社交平台分享中国生活体验时，平台可智能生成多语种配文，
+              帮助其向母国朋友准确介绍中国文化，成为"民间文化大使"。
+            </p>
+            <div class="mt-4 flex gap-2">
+              <span class="text-xs bg-beige/80 px-2 py-1 rounded-md text-soft">生活分享</span>
+              <span class="text-xs bg-beige/80 px-2 py-1 rounded-md text-soft">文化解读</span>
+              <span class="text-xs bg-beige/80 px-2 py-1 rounded-md text-soft">多语配文</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== 数据看板 ==================== -->
+  <section id="stats" class="py-20 bg-gradient-to-r from-guohong to-red-900 relative overflow-hidden">
+    <!-- 装饰 -->
+    <div class="absolute inset-0 opacity-8 pointer-events-none"
+         style="background: repeating-linear-gradient(45deg, transparent, transparent 30px, rgba(255,255,255,0.03) 30px, rgba(255,255,255,0.03) 31px);"></div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-8 text-center text-white">
         <div>
-          <h4 class="font-bold text-golden mb-4" data-i18n="footer.links">快速链接</h4>
-          <ul class="space-y-2 text-sm text-gray-400">
-            <li><a href="#home" class="hover:text-white transition-colors duration-200" data-i18n="nav.home">首页</a></li>
-            <li><a href="#features" class="hover:text-white transition-colors duration-200" data-i18n="nav.features">功能</a></li>
-            <li><a href="#about" class="hover:text-white transition-colors duration-200" data-i18n="nav.about">关于</a></li>
-            <li><a href="#contact" class="hover:text-white transition-colors duration-200" data-i18n="nav.contact">联系</a></li>
+          <p class="count-up text-5xl sm:text-6xl font-black text-golden" id="count1" data-target="12">0</p>
+          <p class="text-white/70 mt-2 font-medium">覆盖语种</p>
+        </div>
+        <div>
+          <p class="count-up text-5xl sm:text-6xl font-black text-golden" id="count2" data-target="50000">0</p>
+          <p class="text-white/70 mt-2 font-medium">知识库条目</p>
+        </div>
+        <div>
+          <p class="count-up text-5xl sm:text-6xl font-black text-golden" id="count3" data-target="3200">0</p>
+          <p class="text-white/70 mt-2 font-medium">服务师生</p>
+        </div>
+        <div>
+          <p class="count-up text-5xl sm:text-6xl font-black text-golden" id="count4" data-target="97">0</p>
+          <span class="text-3xl font-black text-golden">%</span>
+          <p class="text-white/70 mt-2 font-medium">翻译好评率</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== 关于我们 ==================== -->
+  <section id="about" class="py-24 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <span class="text-golden font-bold text-sm tracking-[0.2em] uppercase">About</span>
+        <h2 class="text-3xl sm:text-4xl font-black text-dark mt-3">关于我们</h2>
+        <div class="w-16 h-1 bg-golden mx-auto mt-5 rounded-full"></div>
+      </div>
+
+      <div class="max-w-4xl mx-auto">
+        <!-- 项目背景 -->
+        <div class="bg-beige/50 rounded-3xl p-8 sm:p-10 mb-10">
+          <h3 class="text-xl font-bold text-guohong mb-4">📖 项目背景</h3>
+          <p class="text-soft leading-relaxed text-base">
+            「云译华夏」诞生于广东外语外贸大学高级翻译学院，由一群热爱中华文化的师生共同发起。
+            项目旨在利用人工智能技术，降低中华文化国际传播的门槛，让每一位广外师生都能轻松
+            将中国故事转化为多语种内容，触达全球受众。
+          </p>
+          <p class="text-soft leading-relaxed text-base mt-4">
+            平台聚焦文化翻译的"准确性"与"可读性"两大痛点，创新性地将大语言模型（LLM）与
+            检索增强生成（RAG）相结合，使AI翻译既能保留文化精髓，又符合目标语言的表达习惯。
+          </p>
+        </div>
+
+        <!-- 技术栈 -->
+        <div class="bg-beige/50 rounded-3xl p-8 sm:p-10 mb-6">
+          <h3 class="text-xl font-bold text-guohong mb-4">🛠️ 技术栈</h3>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div class="bg-white rounded-xl p-5 text-center shadow-sm">
+              <div class="text-3xl mb-2">⚡</div>
+              <h4 class="font-bold text-dark">Bolt.new</h4>
+              <p class="text-xs text-soft mt-1">全栈AI开发平台，快速构建与迭代产品</p>
+            </div>
+            <div class="bg-white rounded-xl p-5 text-center shadow-sm">
+              <div class="text-3xl mb-2">🗄️</div>
+              <h4 class="font-bold text-dark">Supabase</h4>
+              <p class="text-xs text-soft mt-1">开源数据库 + 向量存储，支撑RAG检索</p>
+            </div>
+            <div class="bg-white rounded-xl p-5 text-center shadow-sm">
+              <div class="text-3xl mb-2">🧠</div>
+              <h4 class="font-bold text-dark">RAG 架构</h4>
+              <p class="text-xs text-soft mt-1">检索增强生成，确保文化内容精准可信</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 平台链接 -->
+        <div class="text-center">
+          <a href="https://ai-chinese-culture-g-n9s6.bolt.host/" target="_blank" rel="noopener"
+             class="btn-press inline-flex items-center gap-2 px-8 py-4 bg-guohong text-white font-bold text-lg rounded-2xl
+                    hover:bg-red-900 shadow-xl shadow-guohong/20 transition-all duration-300">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+            立即访问平台
+          </a>
+          <p class="text-xs text-soft/60 mt-2">ai-chinese-culture-g-n9s6.bolt.host</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== 团队介绍 ==================== -->
+  <section id="team" class="py-24 bg-beige">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <span class="text-golden font-bold text-sm tracking-[0.2em] uppercase">Team</span>
+        <h2 class="text-3xl sm:text-4xl font-black text-dark mt-3">核心团队</h2>
+        <p class="text-soft mt-3">云译华夏团队 · 广东外语外贸大学 高级翻译学院</p>
+        <div class="w-16 h-1 bg-golden mx-auto mt-5 rounded-full"></div>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+
+        <!-- 成员1：王锶琳｜队长 / 项目统筹 -->
+        <div class="card-hover bg-white rounded-2xl shadow-md p-6 text-center">
+          <div class="w-28 h-28 mx-auto mb-4 rounded-full overflow-hidden shadow-lg ring-4 ring-beige">
+            <img src="https://picsum.photos/280/280?random=41" alt="王锶琳" class="w-full h-full object-cover" loading="lazy">
+          </div>
+          <h4 class="text-lg font-bold text-dark">王锶琳</h4>
+          <p class="text-xs text-golden font-semibold mb-2 bg-golden/10 inline-block px-3 py-1 rounded-full">队长 / 项目统筹</p>
+          <p class="text-sm text-soft leading-relaxed mt-3">
+            负责项目整体规划、进度管控、赛道确定、需求对接、团队分工协调、计划书与Demo审核验收；统筹AI联调，把控整体功能质量。
+          </p>
+        </div>
+
+        <!-- 成员2：吴欣语｜技术开发 / AI 调试 -->
+        <div class="card-hover bg-white rounded-2xl shadow-md p-6 text-center">
+          <div class="w-28 h-28 mx-auto mb-4 rounded-full overflow-hidden shadow-lg ring-4 ring-beige">
+            <img src="https://picsum.photos/280/280?random=42" alt="吴欣语" class="w-full h-full object-cover" loading="lazy">
+          </div>
+          <h4 class="text-lg font-bold text-dark">吴欣语</h4>
+          <p class="text-xs text-golden font-semibold mb-2 bg-golden/10 inline-block px-3 py-1 rounded-full">技术开发 / AI 调试</p>
+          <p class="text-sm text-soft leading-relaxed mt-3">
+            负责网站前端界面优化、API对接与部署、AI模型配置、技术文档撰写、Demo环境搭建与维护。
+          </p>
+        </div>
+
+        <!-- 成员3：李慧慧｜计划书负责人 / 产品设计 -->
+        <div class="card-hover bg-white rounded-2xl shadow-md p-6 text-center">
+          <div class="w-28 h-28 mx-auto mb-4 rounded-full overflow-hidden shadow-lg ring-4 ring-beige">
+            <img src="https://picsum.photos/280/280?random=43" alt="李慧慧" class="w-full h-full object-cover" loading="lazy">
+          </div>
+          <h4 class="text-lg font-bold text-dark">李慧慧</h4>
+          <p class="text-xs text-golden font-semibold mb-2 bg-golden/10 inline-block px-3 py-1 rounded-full">计划书负责人 / 产品设计</p>
+          <p class="text-sm text-soft leading-relaxed mt-3">
+            主导项目计划书撰写、创新点与价值提炼、功能模块设计、多语种文案AI调试与效果优化。
+          </p>
+        </div>
+
+        <!-- 成员4：许焯敏｜传播与演示 / 内容制作 -->
+        <div class="card-hover bg-white rounded-2xl shadow-md p-6 text-center">
+          <div class="w-28 h-28 mx-auto mb-4 rounded-full overflow-hidden shadow-lg ring-4 ring-beige">
+            <img src="https://picsum.photos/280/280?random=44" alt="许焯敏" class="w-full h-full object-cover" loading="lazy">
+          </div>
+          <h4 class="text-lg font-bold text-dark">许焯敏</h4>
+          <p class="text-xs text-golden font-semibold mb-2 bg-golden/10 inline-block px-3 py-1 rounded-full">传播与演示 / 内容制作</p>
+          <p class="text-sm text-soft leading-relaxed mt-3">
+            负责Demo视频设计、录制与剪辑、AI生成内容效果优化、项目对外展示与传播物料制作。
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== 页脚 ==================== -->
+  <footer class="bg-dark text-white pt-16 pb-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
+
+        <!-- 品牌 -->
+        <div class="lg:col-span-1">
+          <div class="flex items-center gap-2.5 mb-4">
+            <div class="w-9 h-9 bg-guohong rounded-lg flex items-center justify-center">
+              <span class="text-golden font-bold text-base">云</span>
+            </div>
+            <span class="text-lg font-bold text-white">云译华夏</span>
+          </div>
+          <p class="text-gray-400 text-sm leading-relaxed">
+            AI驱动中华文化多语种国际传播平台<br>
+            广东外语外贸大学 · 高级翻译学院
+          </p>
+        </div>
+
+        <!-- 快速导航 -->
+        <div>
+          <h5 class="font-bold text-golden mb-4">快速导航</h5>
+          <ul class="space-y-2.5 text-sm text-gray-400">
+            <li><a href="#hero"      class="hover:text-white transition-colors duration-200">首页</a></li>
+            <li><a href="#features"  class="hover:text-white transition-colors duration-200">核心功能</a></li>
+            <li><a href="#highlights" class="hover:text-white transition-colors duration-200">项目亮点</a></li>
+            <li><a href="#scenarios" class="hover:text-white transition-colors duration-200">应用场景</a></li>
+            <li><a href="#about"     class="hover:text-white transition-colors duration-200">关于我们</a></li>
+            <li><a href="#team"      class="hover:text-white transition-colors duration-200">核心团队</a></li>
           </ul>
         </div>
 
         <!-- 联系方式 -->
         <div>
-          <h4 class="font-bold text-golden mb-4" data-i18n="footer.contact">联系我们</h4>
+          <h5 class="font-bold text-golden mb-4">联系方式</h5>
           <div class="space-y-3 text-sm text-gray-400">
-            <div class="flex items-center gap-3">
+            <div class="flex items-center gap-2.5">
               <svg class="w-4 h-4 text-golden shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                  d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
               </svg>
-              <span>contact@yunyihuaxia.com</span>
+              <span>yunyihuaxia@gdufs.edu.cn</span>
             </div>
-            <div class="flex items-center gap-3">
+            <div class="flex items-center gap-2.5">
               <svg class="w-4 h-4 text-golden shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                  d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
-              </svg>
-              <span>+86 400-888-6688</span>
-            </div>
-            <div class="flex items-center gap-3">
-              <svg class="w-4 h-4 text-golden shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                  d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
               </svg>
-              <span data-i18n="footer.address">北京市海淀区中关村科技园</span>
+              <span>广州市白云区白云大道北2号 广外</span>
             </div>
           </div>
-          <!-- 社交媒体图标 -->
-          <div class="flex gap-4 mt-5">
-            <span class="w-9 h-9 rounded-full bg-gray-700 hover:bg-guohong flex items-center justify-center text-sm transition-colors duration-200 cursor-pointer" title="微信">微</span>
-            <span class="w-9 h-9 rounded-full bg-gray-700 hover:bg-guohong flex items-center justify-center text-sm transition-colors duration-200 cursor-pointer" title="微博">博</span>
-            <span class="w-9 h-9 rounded-full bg-gray-700 hover:bg-guohong flex items-center justify-center text-sm transition-colors duration-200 cursor-pointer" title="抖音">抖</span>
+          <!-- 社交图标 -->
+          <div class="flex gap-3 mt-5">
+            <span class="w-9 h-9 rounded-full bg-gray-700 hover:bg-guohong flex items-center justify-center text-xs transition-colors duration-200 cursor-pointer" title="微信">微</span>
+            <span class="w-9 h-9 rounded-full bg-gray-700 hover:bg-guohong flex items-center justify-center text-xs transition-colors duration-200 cursor-pointer" title="微博">博</span>
+            <span class="w-9 h-9 rounded-full bg-gray-700 hover:bg-guohong flex items-center justify-center text-xs transition-colors duration-200 cursor-pointer" title="哔哩哔哩">B</span>
             <span class="w-9 h-9 rounded-full bg-gray-700 hover:bg-guohong flex items-center justify-center text-sm transition-colors duration-200 cursor-pointer" title="YouTube">▶</span>
-            <span class="w-9 h-9 rounded-full bg-gray-700 hover:bg-guohong flex items-center justify-center text-sm transition-colors duration-200 cursor-pointer" title="Instagram">📷</span>
           </div>
+        </div>
+
+        <!-- 平台入口 -->
+        <div>
+          <h5 class="font-bold text-golden mb-4">平台入口</h5>
+          <a href="https://ai-chinese-culture-g-n9s6.bolt.host/" target="_blank" rel="noopener"
+             class="btn-press inline-flex items-center gap-2 px-5 py-3 bg-guohong text-white font-bold rounded-xl
+                    hover:bg-red-900 transition-colors duration-300 text-sm shadow-lg shadow-guohong/30">
+            访问平台 →
+          </a>
+          <p class="text-xs text-gray-500 mt-3">ai-chinese-culture-g-n9s6.bolt.host</p>
         </div>
       </div>
 
       <!-- 版权 -->
       <div class="border-t border-gray-700 pt-8 text-center text-sm text-gray-500">
-        <p data-i18n="footer.copyright">&copy; 2026 云译华夏 YunYiHuaXia. All Rights Reserved.</p>
+        <p>&copy; 2026 云译华夏 · 广东外语外贸大学高级翻译学院 · 保留所有权利</p>
+        <p class="mt-1">Powered by Bolt.new + Supabase + RAG</p>
       </div>
     </div>
   </footer>
 
-  <!-- ==================== 海报放大模态框 ==================== -->
-  <div id="posterModal" class="fixed inset-0 z-[100] modal-overlay flex items-center justify-center p-4 hidden" onclick="closePosterModal(event)">
-    <div class="relative bg-white rounded-2xl shadow-2xl max-w-lg w-full overflow-hidden" onclick="event.stopPropagation()">
-      <button onclick="closePosterModal()"
-              class="absolute top-3 right-3 z-10 w-10 h-10 bg-white/90 hover:bg-white rounded-full flex items-center justify-center shadow-md transition-colors">
-        <svg class="w-5 h-5 text-darkgray" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-        </svg>
-      </button>
-      <div id="posterModalContent" class="aspect-[3/4] flex items-center justify-center p-6">
-        <!-- 动态填充 -->
-      </div>
-      <div class="p-4 text-center border-t border-gray-100">
-        <p class="font-bold text-darkgray" id="posterModalTitle"></p>
-        <p class="text-sm text-softgray mt-1" id="posterModalDesc"></p>
-        <button class="mt-3 px-6 py-2 bg-guohong text-white font-bold rounded-lg hover:bg-red-900 transition-colors text-sm"
-                data-i18n="poster.downloadBtn">下载海报</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- ==================== Toast 提示 ==================== -->
-  <div class="toast" id="toast"></div>
+  <!-- ==================== Toast ==================== -->
+  <div id="toast"></div>
 
   <!-- ==================== JavaScript ==================== -->
   <script>
   (function () {
     'use strict';
 
-    /* ========== 国际化数据 ========== */
-    const i18nData = {
-      cn: {
-        'nav.logo': '云译华夏',
-        'nav.home': '首页',
-        'nav.features': '功能',
-        'nav.about': '关于',
-        'nav.contact': '联系',
-        'nav.lang': 'EN',
+    /* ========== DOM 引用 ========== */
+    const $  = (s) => document.querySelector(s);
+    const $$ = (s) => document.querySelectorAll(s);
 
-        'hero.badge': '中华文化国际传播平台',
-        'hero.title': '云译华夏',
-        'hero.subtitle': '让中国故事，走向世界',
-        'hero.desc': '融合AI翻译与智能创作技术，将中华优秀传统文化、校园文化转化为多语种图文视频内容，一键触达全球受众，让世界听见中国声音。',
-        'hero.btnPrimary': '开始创作',
-        'hero.btnSecondary': '了解更多',
-
-        'features.label': 'Core Features',
-        'features.title': '核心功能',
-        'features.card1.title': '多语种文案生成',
-        'features.card1.desc': '支持中英法西阿五种语言，一键生成符合海外平台调性的文化传播文案。',
-        'features.card1.inputPlaceholder': '请输入文化主题，如"端午节的由来"……',
-        'features.card1.generateBtn': '✨ 一键生成文案',
-        'features.card1.outputPlaceholder': '生成结果将在此展示……',
-        'features.card2.title': 'AI 国风海报生成',
-        'features.card2.desc': '精选3种国风海报模板，AI智能排版配色，一键导出高清海报。',
-        'features.card2.hint': '点击海报可放大预览',
-        'features.card3.title': '短视频一键剪辑',
-        'features.card3.desc': 'AI自动配乐、字幕生成、转场特效，三步完成文化短视频创作。',
-        'features.card3.step1': '素材导入',
-        'features.card3.step1Desc': '上传图片/视频素材',
-        'features.card3.step2': '智能剪辑',
-        'features.card3.step2Desc': 'AI自动生成字幕/BGM',
-        'features.card3.step3': '一键导出',
-        'features.card3.step3Desc': '导出高清短视频',
-        'features.card3.progress': '处理进度',
-        'features.card3.startBtn': '▶ 开始剪辑',
-
-        'stats.title': '数据看板',
-        'stats.subtitle': '用数据见证文化传播的力量',
-        'stats.stat1': '覆盖语种',
-        'stats.stat2': '传播案例',
-        'stats.stat3': '海外受众',
-        'stats.stat3Unit': '万+',
-        'stats.stat4': '合作伙伴',
-
-        'about.label': 'About Us',
-        'about.title': '关于我们',
-        'about.desc': '「云译华夏」由一群热爱中华文化的青年创建，致力于用科技赋能文化国际传播。项目融合自然语言处理、计算机视觉与短视频生成技术，帮助校园社团、文化机构和个人创作者，将中国故事转化为海外受众喜闻乐见的多媒体内容。',
-        'about.member1.name': '张明远',
-        'about.member1.role': '项目发起人',
-        'about.member1.bio': 'NLP博士，专注跨语言文化传播研究',
-        'about.member2.name': '林诗涵',
-        'about.member2.role': '技术负责人',
-        'about.member2.bio': '全栈工程师，计算机视觉专家',
-        'about.member3.name': '陈晓雨',
-        'about.member3.role': '设计总监',
-        'about.member3.bio': '视觉设计师，国风美学研究者',
-        'about.member4.name': '王浩然',
-        'about.member4.role': '运营负责人',
-        'about.member4.bio': '国际传播运营，海外社媒达人',
-
-        'footer.brand': '云译华夏',
-        'footer.desc': '融合AI科技与中华美学，打造国际一流的文化传播平台。',
-        'footer.links': '快速链接',
-        'footer.contact': '联系我们',
-        'footer.address': '北京市海淀区中关村科技园',
-        'footer.copyright': '© 2026 云译华夏 YunYiHuaXia. All Rights Reserved.',
-
-        'poster.downloadBtn': '下载海报',
-
-        'toast.langChanged': '语言已切换为中文',
-        'toast.copyGenerated': '文案已生成！',
-        'toast.videoStarted': '视频剪辑已开始…',
-        'toast.videoDone': '视频剪辑完成！',
-        'toast.posterDownload': '海报下载中，请稍候…',
-
-        'poster.0.title': '水墨丹青',
-        'poster.0.desc': '以传统水墨画风格展现文化意境',
-        'poster.1.title': '节庆华章',
-        'poster.1.desc': '红金配色，适合传统节庆活动宣传',
-        'poster.2.title': '现代简约',
-        'poster.2.desc': '简洁清雅的当代国风设计风格',
-
-        'copywriting.input': '请输入文化主题，如"端午节的由来"……',
-        'copywriting.sample1': '标题：端午节的由来与传承\n\n端午节，又称端阳节，是中国四大传统节日之一。每年农历五月初五，人们赛龙舟、吃粽子、挂艾草，以此纪念伟大的爱国诗人屈原。\n\n屈原是战国时期楚国的大夫，他忧国忧民，在得知楚国被秦国攻破后，于五月初五投汨罗江自尽。百姓闻讯后划船搜救，并向江中投撒米团以防止鱼虾啃食屈原的身体，这便是赛龙舟和吃粽子习俗的由来。\n\n如今，端午节已被列入联合国教科文组织人类非物质文化遗产代表作名录，成为世界了解中华文化的重要窗口。',
-      },
-      en: {
-        'nav.logo': 'CloudLingua China',
-        'nav.home': 'Home',
-        'nav.features': 'Features',
-        'nav.about': 'About',
-        'nav.contact': 'Contact',
-        'nav.lang': '中文',
-
-        'hero.badge': 'Chinese Culture Global Platform',
-        'hero.title': 'CloudLingua China',
-        'hero.subtitle': 'Bringing Chinese Stories to the World',
-        'hero.desc': 'Leveraging AI translation and intelligent content creation to transform traditional and campus Chinese culture into multilingual multimedia content — reaching global audiences with one click, letting the world hear China\'s voice.',
-        'hero.btnPrimary': 'Get Started',
-        'hero.btnSecondary': 'Learn More',
-
-        'features.label': 'Core Features',
-        'features.title': 'Core Features',
-        'features.card1.title': 'Multilingual Copywriting',
-        'features.card1.desc': 'Support 5 languages (Chinese, English, French, Spanish, Arabic). Generate culturally-tuned copy for overseas platforms with one click.',
-        'features.card1.inputPlaceholder': 'Enter a cultural topic, e.g. "The Origin of Dragon Boat Festival"…',
-        'features.card1.generateBtn': '✨ Generate Copy',
-        'features.card1.outputPlaceholder': 'Generated content will appear here…',
-        'features.card2.title': 'AI Chinese-Style Posters',
-        'features.card2.desc': 'Choose from 3 Chinese-style poster templates. AI-powered layout and color matching. Export high-res posters instantly.',
-        'features.card2.hint': 'Click thumbnails to preview',
-        'features.card3.title': 'One-Tap Video Editing',
-        'features.card3.desc': 'Auto BGM, subtitle generation, and transition effects. Create cultural short videos in three steps.',
-        'features.card3.step1': 'Import Media',
-        'features.card3.step1Desc': 'Upload photos & video clips',
-        'features.card3.step2': 'AI Editing',
-        'features.card3.step2Desc': 'Auto subtitles & BGM',
-        'features.card3.step3': 'Export',
-        'features.card3.step3Desc': 'Export HD short video',
-        'features.card3.progress': 'Processing',
-        'features.card3.startBtn': '▶ Start Editing',
-
-        'stats.title': 'Dashboard',
-        'stats.subtitle': 'Witness the power of cultural communication',
-        'stats.stat1': 'Languages',
-        'stats.stat2': 'Cases Published',
-        'stats.stat3': 'Global Audience',
-        'stats.stat3Unit': 'M+',
-        'stats.stat4': 'Partners',
-
-        'about.label': 'About Us',
-        'about.title': 'About Us',
-        'about.desc': 'CloudLingua China was founded by a group of young people passionate about Chinese culture, dedicated to empowering international cultural communication through technology. The project integrates NLP, computer vision, and short-video generation to help campus clubs, cultural institutions, and individual creators transform Chinese stories into multimedia content that resonates with global audiences.',
-        'about.member1.name': 'Zhang Mingyuan',
-        'about.member1.role': 'Founder',
-        'about.member1.bio': 'PhD in NLP, cross-cultural communication researcher',
-        'about.member2.name': 'Lin Shihan',
-        'about.member2.role': 'Tech Lead',
-        'about.member2.bio': 'Full-stack engineer, computer vision expert',
-        'about.member3.name': 'Chen Xiaoyu',
-        'about.member3.role': 'Design Director',
-        'about.member3.bio': 'Visual designer, Chinese aesthetics researcher',
-        'about.member4.name': 'Wang Haoran',
-        'about.member4.role': 'Operations Lead',
-        'about.member4.bio': 'Global communications, social media strategist',
-
-        'footer.brand': 'CloudLingua China',
-        'footer.desc': 'Fusing AI technology with Chinese aesthetics to build a world-class cultural communication platform.',
-        'footer.links': 'Quick Links',
-        'footer.contact': 'Contact Us',
-        'footer.address': 'Zhongguancun Science Park, Haidian, Beijing',
-        'footer.copyright': '© 2026 CloudLingua China. All Rights Reserved.',
-
-        'poster.downloadBtn': 'Download Poster',
-
-        'toast.langChanged': 'Language switched to English',
-        'toast.copyGenerated': 'Copy generated successfully!',
-        'toast.videoStarted': 'Video editing started…',
-        'toast.videoDone': 'Video editing complete!',
-        'toast.posterDownload': 'Downloading poster, please wait…',
-
-        'poster.0.title': 'Ink Wash',
-        'poster.0.desc': 'Traditional ink wash painting style showcasing cultural意境',
-        'poster.1.title': 'Festive Splendor',
-        'poster.1.desc': 'Red and gold palette, perfect for traditional festival promotions',
-        'poster.2.title': 'Modern Minimal',
-        'poster.2.desc': 'Clean and elegant contemporary Chinese aesthetic',
-
-        'copywriting.input': 'Enter a cultural topic, e.g. "The Origin of Dragon Boat Festival"…',
-        'copywriting.sample1': 'Title: The Origin and Heritage of the Dragon Boat Festival\n\nThe Dragon Boat Festival, also known as Duanwu Festival, is one of China\'s four major traditional festivals. On the fifth day of the fifth lunar month each year, people race dragon boats, eat zongzi (sticky rice dumplings), and hang mugwort to commemorate the great patriotic poet Qu Yuan.\n\nQu Yuan was a minister of the State of Chu during the Warring States period. Deeply concerned about his country, upon learning that Chu had been conquered by Qin, he drowned himself in the Miluo River on the fifth day of the fifth month. Upon hearing the news, locals raced their boats to search for him and threw rice into the river to prevent fish from eating his body — giving rise to the traditions of dragon boat racing and zongzi.\n\nToday, the Dragon Boat Festival has been inscribed on UNESCO\'s Representative List of the Intangible Cultural Heritage of Humanity, serving as an important window for the world to understand Chinese culture.',
-      }
-    };
-
-    /* ========== 当前语言 ========== */
-    let currentLang = 'cn';
-
-    /* ========== DOM 缓存 ========== */
-    const $ = (sel) => document.querySelector(sel);
-    const $$ = (sel) => document.querySelectorAll(sel);
-
-    const navbar = $('#navbar');
+    const navbar    = $('#navbar');
+    const menuBtn   = $('#menuBtn');
     const mobileMenu = $('#mobileMenu');
-    const mobileMenuBtn = $('#mobileMenuBtn');
-    const langToggle = $('#langToggle');
-    const langToggleMobile = $('#langToggleMobile');
-    const toast = $('#toast');
-    const posterModal = $('#posterModal');
-    const copywritingInput = $('#copywritingInput');
-    const copywritingOutput = $('#copywritingOutput');
-    const videoProgressBar = $('#videoProgressBar');
-    const videoProgressPercent = $('#videoProgressPercent');
+    const toast     = $('#toast');
 
     /* ========== Toast 提示 ========== */
     let toastTimer;
@@ -825,284 +792,160 @@
       toastTimer = setTimeout(() => toast.classList.remove('show'), 2200);
     }
 
-    /* ========== 语言切换 ========== */
-    function switchLang(lang) {
-      currentLang = lang;
-      const data = i18nData[lang];
-
-      // 更新所有 data-i18n 元素
-      $$('[data-i18n]').forEach(el => {
-        const key = el.getAttribute('data-i18n');
-        if (data[key] !== undefined) {
-          el.textContent = data[key];
-        }
-      });
-
-      // 更新 HTML lang 属性
-      document.documentElement.lang = lang === 'cn' ? 'zh-CN' : 'en';
-
-      // 更新文档标题
-      document.title = lang === 'cn'
-        ? '云译华夏 - 让中国故事，走向世界'
-        : 'CloudLingua China - Bringing Chinese Stories to the World';
-
-      // 更新输入框提示文
-      if (copywritingInput) {
-        copywritingInput.innerHTML = '<span>' + (data['copywriting.input'] || '') + '</span>';
-      }
-
-      showToast(data['toast.langChanged'] || 'Language changed');
-    }
-
-    function toggleLang() {
-      switchLang(currentLang === 'cn' ? 'en' : 'cn');
-    }
-
-    langToggle.addEventListener('click', toggleLang);
-    langToggleMobile.addEventListener('click', toggleLang);
-
     /* ========== 移动端菜单 ========== */
     let menuOpen = false;
-    mobileMenuBtn.addEventListener('click', () => {
+    menuBtn.addEventListener('click', () => {
       menuOpen = !menuOpen;
       if (menuOpen) {
-        mobileMenu.classList.remove('hidden-menu');
-        $('#bar1').style.transform = 'rotate(45deg) translate(3px, 3px)';
+        mobileMenu.classList.remove('closed');
+        $('#bar1').style.transform = 'rotate(45deg) translate(4px, 4px)';
         $('#bar2').style.opacity = '0';
-        $('#bar3').style.transform = 'rotate(-45deg) translate(3px, -3px)';
+        $('#bar3').style.transform = 'rotate(-45deg) translate(4px, -4px)';
       } else {
-        mobileMenu.classList.add('hidden-menu');
-        $('#bar1').style.transform = 'rotate(0) translate(0, 0)';
-        $('#bar2').style.opacity = '1';
-        $('#bar3').style.transform = 'rotate(0) translate(0, 0)';
+        mobileMenu.classList.add('closed');
+        $('#bar1').style.transform = '';
+        $('#bar2').style.opacity = '';
+        $('#bar3').style.transform = '';
       }
     });
 
-    // 点击菜单链接后关闭菜单
+    // 点击菜单链接自动收起
     $$('#mobileMenu a').forEach(link => {
       link.addEventListener('click', () => {
         menuOpen = false;
-        mobileMenu.classList.add('hidden-menu');
-        $('#bar1').style.transform = 'rotate(0) translate(0, 0)';
-        $('#bar2').style.opacity = '1';
-        $('#bar3').style.transform = 'rotate(0) translate(0, 0)';
+        mobileMenu.classList.add('closed');
+        $('#bar1').style.transform = '';
+        $('#bar2').style.opacity = '';
+        $('#bar3').style.transform = '';
       });
     });
 
     /* ========== 导航栏滚动效果 ========== */
     function updateNavbar() {
-      const scrollY = window.scrollY;
-      if (scrollY > 80) {
-        navbar.classList.add('nav-scrolled');
-      } else {
-        navbar.classList.remove('nav-scrolled');
-      }
+      navbar.classList.toggle('navbar-solid', window.scrollY > 60);
     }
     window.addEventListener('scroll', updateNavbar, { passive: true });
-    updateNavbar(); // 初始检查
+    updateNavbar();
 
-    /* ========== 平滑滚动 ========== */
-    window.scrollToSection = function (id) {
-      const el = document.getElementById(id);
-      if (el) {
-        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-    };
+    /* ========== 「访问平台」按钮点击反馈 ========== */
+    $$('a[href*="bolt.host"]').forEach(btn => {
+      btn.addEventListener('click', function () {
+        showToast('正在打开云译华夏平台……');
+      });
+    });
 
     /* ========== 数字滚动动画 ========== */
-    function animateNumber(el, target, duration = 1800) {
-      const start = 0;
+    function animateCount(el, target, duration) {
+      if (el._animated) return;
+      el._animated = true;
+      const startVal = 0;
       const startTime = performance.now();
 
-      function update(now) {
+      function tick(now) {
         const elapsed = now - startTime;
-        const progress = Math.min(elapsed / duration, 1);
-        // easeOutExpo
-        const eased = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
-        const current = Math.floor(start + (target - start) * eased);
+        const t = Math.min(elapsed / duration, 1);
+        // easeOutExpo: 到达终点前快速减速
+        const eased = t === 1 ? 1 : 1 - Math.pow(2, -10 * t);
+        const current = Math.round(startVal + (target - startVal) * eased);
         el.textContent = current.toLocaleString();
-        if (progress < 1) {
-          requestAnimationFrame(update);
-        } else {
-          el.textContent = target.toLocaleString();
-        }
+        if (t < 1) requestAnimationFrame(tick);
+        else el.textContent = target.toLocaleString();
       }
-      requestAnimationFrame(update);
+      requestAnimationFrame(tick);
     }
 
-    /* ========== 统计数字 Intersection Observer ========== */
+    /* ========== IntersectionObserver：触发数字滚动 ========== */
     const statsSection = $('#stats');
-    let statsAnimated = false;
+    let statsFired = false;
 
-    const statsObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting && !statsAnimated) {
-          statsAnimated = true;
-          const statEls = $$('.stat-number');
-          statEls.forEach(el => {
-            const target = parseInt(el.getAttribute('data-target'), 10);
-            animateNumber(el, target);
-          });
-        }
-      });
-    }, { threshold: 0.3 });
+    if (statsSection) {
+      const obs = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting && !statsFired) {
+            statsFired = true;
+            const el1 = $('#count1'), el2 = $('#count2'),
+                  el3 = $('#count3'), el4 = $('#count4');
+            const d1 = parseInt(el1.getAttribute('data-target'), 10);
+            const d2 = parseInt(el2.getAttribute('data-target'), 10);
+            const d3 = parseInt(el3.getAttribute('data-target'), 10);
+            const d4 = parseInt(el4.getAttribute('data-target'), 10);
+            // 四个数字错峰启动，更有节奏感
+            setTimeout(() => animateCount(el1, d1, 1800), 0);
+            setTimeout(() => animateCount(el2, d2, 2200), 150);
+            setTimeout(() => animateCount(el3, d3, 1800), 300);
+            setTimeout(() => animateCount(el4, d4, 1600), 450);
+          }
+        });
+      }, { threshold: 0.35 });
+      obs.observe(statsSection);
+    }
 
-    if (statsSection) statsObserver.observe(statsSection);
+    /* ========== 文案生成功能 ========== */
+    window.generateCopywriting = function () {
+      const inputEl  = $('#copywritingInput');
+      const outputEl = $('#copywritingOutput');
+      const resultEl = $('#copywritingResultText');
+      const langEl   = $('#copywritingLang');
+      const topic    = inputEl.value.trim();
+      const lang     = langEl.value;
 
-    /* ========== 海报模态框 ========== */
-    const posterData = [
-      {
-        gradient: 'bg-gradient-to-b from-guohong to-red-800',
-        innerClass: 'border-golden/30',
-        titleKey: 'poster.0.title', descKey: 'poster.0.desc',
-        decoration: '<div class="text-golden/40 text-9xl font-bold select-none pointer-events-none">墨</div>'
-      },
-      {
-        gradient: 'bg-gradient-to-b from-red-700 via-golden to-red-800',
-        innerClass: 'border-white/30',
-        titleKey: 'poster.1.title', descKey: 'poster.1.desc',
-        decoration: '<div class="text-white/30 text-9xl font-bold select-none pointer-events-none">福</div>'
-      },
-      {
-        gradient: 'bg-gradient-to-b from-slate-100 to-gray-200',
-        innerClass: 'border-guohong/20',
-        titleKey: 'poster.2.title', descKey: 'poster.2.desc',
-        decoration: '<div class="text-guohong/15 text-9xl font-bold select-none pointer-events-none">韵</div>'
+      // 空输入校验
+      if (!topic) {
+        showToast('请先输入文案主题再生成哦～');
+        inputEl.focus();
+        inputEl.style.borderColor = '#8B2323';
+        setTimeout(() => { inputEl.style.borderColor = ''; }, 1500);
+        return;
       }
-    ];
 
-    window.openPosterModal = function (index) {
-      const poster = posterData[index];
-      const data = i18nData[currentLang];
-      const content = $('#posterModalContent');
-      content.className = 'aspect-[3/4] flex items-center justify-center p-6 relative ' + poster.gradient;
-      content.innerHTML = `
-        <div class="absolute inset-4 border ${poster.innerClass} rounded"></div>
-        <div class="absolute inset-8 border ${poster.innerClass} rounded opacity-50"></div>
-        ${poster.decoration}
-        <div class="relative z-10 text-center">
-          <p class="text-2xl font-black ${index === 2 ? 'text-guohong' : 'text-white'}">${data[poster.titleKey]}</p>
-        </div>`;
-      $('#posterModalTitle').textContent = data[poster.titleKey];
-      $('#posterModalDesc').textContent = data[poster.descKey];
-      posterModal.classList.remove('hidden');
-      document.body.style.overflow = 'hidden';
-    };
+      // 加载态
+      const loadingText = {
+        zh: '⏳ AI 正在分析「' + topic + '」，生成多语种文案……',
+        en: '⏳ AI is analyzing "' + topic + '" and generating copy……',
+        fr: '⏳ L\'IA analyse « ' + topic + ' » et génère le contenu……',
+        es: '⏳ La IA está analizando "' + topic + '" y generando contenido……',
+        ar: '⏳ …يقوم الذكاء الاصطناعي بتحليل "' + topic + '" وإنشاء المحتوى',
+      };
+      resultEl.textContent = loadingText[lang] || loadingText.zh;
+      resultEl.classList.remove('italic', 'text-soft/50');
+      resultEl.classList.add('text-golden', 'font-medium');
 
-    window.closePosterModal = function (e) {
-      if (e && e.target !== posterModal) return;
-      posterModal.classList.add('hidden');
-      document.body.style.overflow = '';
-    };
-
-    // ESC 关闭模态框
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && !posterModal.classList.contains('hidden')) {
-        posterModal.classList.add('hidden');
-        document.body.style.overflow = '';
-      }
-    });
-
-    /* ========== 语言标签点击 ========== */
-    $$('#langTags .lang-tag').forEach(tag => {
-      tag.addEventListener('click', function () {
-        $$('#langTags .lang-tag').forEach(t => t.classList.remove('active'));
-        this.classList.add('active');
-        const lang = this.getAttribute('data-lang');
-        const langNames = { zh: '中文', en: 'English', fr: 'Français', es: 'Español', ar: 'العربية' };
-        const inputEl = copywritingInput;
-        if (inputEl) {
-          const text = currentLang === 'cn'
-            ? `已选择 ${langNames[lang]} - 请输入文化主题……`
-            : `Selected ${langNames[lang]} - Enter a cultural topic…`;
-          inputEl.innerHTML = '<span>' + text + '</span>';
-        }
-      });
-    });
-
-    /* ========== 文案生成模拟 ========== */
-    window.simulateCopywriting = function () {
-      const data = i18nData[currentLang];
-      const outputEl = copywritingOutput;
-      const sampleKey = 'copywriting.sample1';
-
-      // 模拟加载
-      outputEl.innerHTML = '<span class="text-golden">⏳ ' + (currentLang === 'cn' ? 'AI 正在生成文案……' : 'AI is generating copy…') + '</span>';
-      outputEl.classList.add('animate-pulse');
-
+      // 模拟 AI 生成（1.2s 延迟）
       setTimeout(() => {
-        outputEl.classList.remove('animate-pulse');
-        outputEl.innerHTML = '<span style="white-space: pre-line">' + (data[sampleKey] || '') + '</span>';
-        showToast(data['toast.copyGenerated']);
-      }, 1500);
+        // 根据用户主题动态生成内容
+        const samples = {
+          zh: '标题：' + topic + '的文化解读\n\n' + topic + '是中华文化中一颗璀璨的明珠，承载着深厚的历史底蕴与民族智慧。\n\n从古至今，' + topic + '不仅是中华民族精神的重要载体，更在国际文化交流中展现出独特的魅力。近年来，随着中华文化"走出去"步伐的加快，' + topic + '吸引了越来越多海外受众的关注与喜爱。\n\n我们相信，通过多语种的内容传播与创新的表达方式，' + topic + '将成为世界了解中国的一扇窗口，让更多国际友人感受到中华文化的博大精深。\n\n#中华文化 #' + topic + ' #文化出海 #国际传播',
+          en: 'Title: Exploring ' + topic + ' – A Cultural Insight\n\n' + topic + ' stands as a brilliant gem in Chinese culture, embodying profound historical depth and national wisdom.\n\nFrom ancient times to the present, ' + topic + ' has served not only as a vital vessel of the Chinese national spirit but has also demonstrated unique charm in international cultural exchanges. As Chinese culture accelerates its global outreach, ' + topic + ' has captured growing attention and admiration from overseas audiences.\n\nWe firmly believe that through multilingual content dissemination and innovative forms of expression, ' + topic + ' will become a window for the world to understand China, allowing more international friends to experience the breadth and depth of Chinese culture.\n\n#ChineseCulture #' + topic.replace(/\s+/g, '') + ' #CulturalExchange #GlobalChina',
+          fr: 'Titre : À la découverte de ' + topic + ' – Un aperçu culturel\n\n' + topic + ' est un joyau brillant de la culture chinoise, porteur d\'une profondeur historique et d\'une sagesse nationale.\n\nDe l\'Antiquité à nos jours, ' + topic + ' n\'est pas seulement un vecteur important de l\'esprit national chinois, mais manifeste également un charme unique dans les échanges culturels internationaux. Avec l\'accélération de la diffusion mondiale de la culture chinoise, ' + topic + ' attire une attention et une admiration croissantes du public international.\n\n#CultureChinoise #' + topic.replace(/\s+/g, '') + ' #ÉchangeCulturel',
+          es: 'Título: Explorando ' + topic + ' – Una Perspectiva Cultural\n\n' + topic + ' es una joya brillante en la cultura china, que encarna una profunda profundidad histórica y sabiduría nacional.\n\nDesde la antigüedad hasta el presente, ' + topic + ' no solo ha servido como un vehículo vital del espíritu nacional chino, sino que también ha demostrado un encanto único en los intercambios culturales internacionales.\n\n#CulturaChina #' + topic.replace(/\s+/g, '') + ' #IntercambioCultural',
+          ar: 'العنوان: استكشاف ' + topic + ' – رؤية ثقافية\n\nيعد ' + topic + ' جوهرة لامعة في الثقافة الصينية، تجسد عمقًا تاريخيًا وحكمة وطنية.\n\nمن العصور القديمة حتى الوقت الحاضر، لم يكن ' + topic + ' مجرد وعاء حيوي للروح الوطنية الصينية، بل أظهر أيضًا سحرًا فريدًا في التبادلات الثقافية الدولية.\n\n#الثقافة_الصينية #' + topic.replace(/\s+/g, '') + ' #التبادل_الثقافي',
+        };
+
+        resultEl.classList.remove('text-golden', 'font-medium');
+        resultEl.classList.add('text-dark');
+        resultEl.style.whiteSpace = 'pre-line';
+        resultEl.textContent = samples[lang] || samples.zh;
+
+        showToast('文案已生成！主题：「' + topic + '」');
+      }, 1200);
     };
 
-    /* ========== 视频剪辑模拟 ========== */
-    window.simulateVideoEdit = function () {
-      const data = i18nData[currentLang];
-      const bar = videoProgressBar;
-      const percent = videoProgressPercent;
-      const steps = $$('#features .step-dot');
+    // 输入框回车键触发生成
+    $('#copywritingInput').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        generateCopywriting();
+      }
+    });
 
-      showToast(data['toast.videoStarted']);
-      bar.style.width = '0%';
-      percent.textContent = '0%';
-
-      // 重置步骤
-      steps.forEach((s, i) => {
-        s.classList.remove('completed', 'active');
-        s.textContent = i + 1;
-      });
-
-      let progress = 0;
-      const totalDuration = 4000; // 总动画时间
-      const interval = 40; // 更新间隔
-      const increment = 100 / (totalDuration / interval);
-
-      const timer = setInterval(() => {
-        progress += increment;
-        if (progress >= 100) {
-          progress = 100;
-          clearInterval(timer);
-          bar.style.width = '100%';
-          percent.textContent = '100%';
-          // 标记所有步骤完成
-          steps.forEach((s, i) => {
-            s.classList.add('completed');
-            s.classList.remove('active');
-            s.textContent = '✓';
-          });
-          showToast(data['toast.videoDone']);
-        } else {
-          bar.style.width = progress + '%';
-          percent.textContent = Math.floor(progress) + '%';
-
-          // 更新步骤状态
-          if (progress >= 33) {
-            steps[0].classList.add('completed');
-            steps[0].classList.remove('active');
-            steps[0].textContent = '✓';
-            steps[1].classList.add('active');
-          }
-          if (progress >= 66) {
-            steps[1].classList.add('completed');
-            steps[1].classList.remove('active');
-            steps[1].textContent = '✓';
-            steps[2].classList.add('active');
-          }
-        }
-      }, interval);
-
-      // 存储定时器以便清理
-      bar._timer = timer;
-    };
-
-    /* ========== 初始化 ========== */
-    console.log('%c云译华夏 %cCloudLingua China %cv1.0',
-      'color:#8B2323;font-size:20px;font-weight:bold;',
-      'color:#333;font-size:14px;',
-      'color:#999;font-size:12px;');
-    console.log('%c让中国故事，走向世界 ✨', 'color:#FFD700;font-size:14px;');
+    /* ========== 初始化日志 ========== */
+    console.log(
+      '%c云译华夏 %cv1.0 %c广外高翻',
+      'color:#8B2323;font-size:22px;font-weight:900;',
+      'color:#333;font-size:13px;',
+      'color:#999;font-size:12px;'
+    );
+    console.log('%cAI驱动中华文化多语种国际传播平台', 'color:#FFD700;font-size:13px;');
 
   })();
   </script>
